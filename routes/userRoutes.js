@@ -26,11 +26,33 @@ router.post('/signup', async (req, res) => {
 
 router.get('/users', async (req, res) => {
     try {
-        console.log(req);
+        const users = await User.find().select('-password'); // Exclure le champ 'password' pour des raisons de sécurité
+        res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+router.delete('/getUser/:username', async (req, res) => {
+    const username = req.params.username;
+
+    try {
+        // Supprimer les associations de l'utilisateur dans 'Reunion_Utilisateur'
+        // await ReunionUtilisateur.deleteMany({ id_Utilisateur: userId });
+
+        // Supprimer l'utilisateur de 'Utilisateur'
+        const userDeleted = await User.findOneAndDelete({ username: username });
+
+        if (!userDeleted) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé' });
+        }
+
+        res.status(200).json({ message: 'Utilisateur supprimé avec succès' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 // Route de connexion
 // router.post('/login', async (req, res) => {

@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const connectDB = require('./db'); // Importe la fonction de connexion à la base de données
 
@@ -9,6 +10,7 @@ connectDB();
 
 // Middleware pour parser les requêtes JSON
 app.use(express.json());
+app.use(cors());
 
 // Importe les routes d'authentification
 const userRoutes = require('./routes/userRoutes');
