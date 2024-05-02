@@ -23,14 +23,28 @@ router.post('/creer', async (req, res) => {
     }
 });
 
+
+// Récupérer toutes les réunions
 router.get('/reunions', async (req, res) => {
     try {
-        console.log(req);
+        const reunions = await Reunion.find();
+        res.status(200).json(reunions);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
+
+// Récupérer toutes les réunions d'un utilisateur
+router.get('/utilisateur_reunions/:id_utilisateur', async (req, res) => {
+    const id_utilisateur = req.params.id_utilisateur;
+    try {
+        const sesReunions = await Reunion.find({id_utilisateur});
+        res.status(200).json(sesReunions);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 router.delete('/supprimer/:id_reunion', async (req, res) => {
     try {

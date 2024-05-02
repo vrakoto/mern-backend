@@ -33,15 +33,29 @@ router.get('/users', async (req, res) => {
     }
 });
 
-router.delete('/getUser/:username', async (req, res) => {
-    const username = req.params.username;
+
+// Récupérer les infos d'un utilisateur
+router.get('/getUser/:id_utilisateur', async (req, res) => {
+    const id_utilisateur = req.params.id_utilisateur;
+    try {
+        const users = await User.findOne({_id: id_utilisateur})
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+// Supprimer un utilisateur
+router.delete('/supprimer/:id_utilisateur', async (req, res) => {
+    const id_utilisateur = req.params.id_utilisateur;
 
     try {
         // Supprimer les associations de l'utilisateur dans 'Reunion_Utilisateur'
         // await ReunionUtilisateur.deleteMany({ id_Utilisateur: userId });
 
         // Supprimer l'utilisateur de 'Utilisateur'
-        const userDeleted = await User.findOneAndDelete({ username: username });
+        const userDeleted = await User.findByIdAndDelete({_id: id_utilisateur})
 
         if (!userDeleted) {
             return res.status(404).json({ message: 'Utilisateur non trouvé' });
