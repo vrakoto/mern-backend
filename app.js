@@ -11,8 +11,14 @@ connectDB();
 app.use(express.json());
 
 // Importe les routes d'authentification
-const authRoutes = require('./routes/authRoutes');
-app.use('/api/auth', authRoutes); // Utilisation des routes d'authentification
+const userRoutes = require('./routes/userRoutes');
+const salleRoutes = require('./routes/salleRoutes');
+const reunionRoutes = require('./routes/reunionRoutes');
+const reunionUsersRoutes = require('./routes/reunionUsersRoutes');
+app.use('/user', userRoutes);
+app.use('/salle', salleRoutes);
+app.use('/reunion', reunionRoutes);
+app.use('/reunion_user', reunionUsersRoutes);
 
 // Route de base pour tester que le serveur fonctionne
 app.get('/', (req, res) => {
