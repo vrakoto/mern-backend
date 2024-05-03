@@ -1,11 +1,11 @@
 const cors = require('cors');
 const express = require('express');
-const connectDB = require('./db'); // Importe la fonction de connexion à la base de données
+const connectDB = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connexion à la base de données
+// Connexion à la base de données, génération des collections et données bidons
 connectDB();
 
 // Middleware pour parser les requêtes JSON
@@ -21,11 +21,6 @@ app.use('/user', userRoutes);
 app.use('/salle', salleRoutes);
 app.use('/reunion', reunionRoutes);
 app.use('/reunion_user', reunionUsersRoutes);
-
-// Route de base pour tester que le serveur fonctionne
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 // Démarrage du serveur
 app.listen(PORT, () => {

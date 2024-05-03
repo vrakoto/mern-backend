@@ -6,7 +6,7 @@ const User = require('../models/User');
 const router = express.Router();
 
 
-// Créer une réunion
+// Créer une réunion : http://localhost:3001/reunion/creer
 router.post('/creer', async (req, res) => {
     try {
         const { duree, motif, id_salle } = req.body;
@@ -29,8 +29,8 @@ router.post('/creer', async (req, res) => {
 });
 
 
-// Récupérer toutes les réunions
-router.get('/reunions', async (req, res) => {
+// Récupérer toutes les réunions : http://localhost:3001/reunion/all
+router.get('/all', async (req, res) => {
     try {
         const reunions = await Reunion.find();
         res.status(200).json(reunions);
@@ -40,8 +40,8 @@ router.get('/reunions', async (req, res) => {
 });
 
 
-// Récupérer toutes les réunions d'un utilisateur
-router.get('/utilisateur_reunions/:id_utilisateur', async (req, res) => {
+// Récupérer toutes les réunions d'un utilisateur : http://localhost:3001/reunion/user/:id_utilisateur
+router.get('/user/:id_utilisateur', async (req, res) => {
     const id_utilisateur = req.params.id_utilisateur;
     try {
         // Rechercher l'utilisateur par son ID
@@ -63,7 +63,7 @@ router.get('/utilisateur_reunions/:id_utilisateur', async (req, res) => {
 });
 
 
-// Supprimer une réunion
+// Supprimer une réunion : http://localhost:3001/reunion/supprimer/:id_reunion
 router.delete('/supprimer/:id_reunion', async (req, res) => {
     try {
         const id_reunion = req.params.id_reunion;
