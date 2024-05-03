@@ -69,27 +69,27 @@ router.delete('/supprimer/:id_utilisateur', async (req, res) => {
 
 
 // Route de connexion
-// router.post('/login', async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-//         const user = await User.findOne({ email });
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
-//         if (!user) {
-//             return res.status(404).json({ message: "User not found!" });
-//         }
+        if (!user) {
+            return res.status(404).json({ message: "L'utilisateur n'existe pas" });
+        }
 
-//         const isMatch = await bcrypt.compare(password, user.password); // Vérification du mot de passe
+        // const isMatch = await bcrypt.compare(password, user.password); // Vérification du mot de passe
 
-//         if (!isMatch) {
-//             return res.status(400).json({ message: "Invalid credentials!" });
-//         }
+        // if (!isMatch) {
+        //     return res.status(400).json({ message: "Invalid credentials!" });
+        // }
 
-//         const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' }); // Génération du token JWT
+        const token = jwt.sign({ userId: user._id }, 'mon_token', { expiresIn: '1h' }); // Génération du token JWT
 
-//         res.status(200).json({ token, userId: user._id });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
+        res.status(200).json({ token, userId: user._id });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = router;

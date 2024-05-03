@@ -9,11 +9,11 @@ const userSchema = new mongoose.Schema({
 });
 
 // Méthode pour hacher le mot de passe avant de sauvegarder l'utilisateur
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
+// userSchema.pre('save', async function(next) {
+//     if (!this.isModified('password')) return next();
+//     this.password = await bcrypt.hash(this.password, 12);
+//     next();
+// });
 
 const User = mongoose.model('users', userSchema);
 

@@ -17,7 +17,10 @@ router.post('/creer', async (req, res) => {
 
         await newReunion.save();
 
-        res.status(201).json({ message: "Reunion created successfully!" });
+        res.status(201).json({ 
+            message: 'Reunion created successfully!',
+            id_reunion: newReunion._id
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

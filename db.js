@@ -4,7 +4,7 @@ const Salle = require('./models/Salle');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect('mongodb://127.0.0.1:27017/test');
+        const conn = await mongoose.connect('mongodb://127.0.0.1:27017/reunion');
         console.log(`MongoDB Connected: ${conn.connection.host}`);
 
         // Supprimez la base de données 'reunion'
