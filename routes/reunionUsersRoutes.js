@@ -20,7 +20,7 @@ router.post('/ajouter', async (req, res) => {
     }
 });
 
-// Récupère tous les utilisateurs d'une réunion
+// Récupère tous les utilisateurs d'une réunion spécifique
 router.get('/users/:id_reunion', async (req, res) => {
     const id_reunion = req.params.id_reunion;
 

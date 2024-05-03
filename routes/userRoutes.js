@@ -2,16 +2,18 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const ReunionUsers = require('../models/ReunionUsers');
 
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 12); // Hachage du mot de passe
+        const { nom, prenom, email, password } = req.body;
+        // const hashedPassword = await bcrypt.hash(password, 12); // Hachage du mot de passe
 
         const newUser = new User({
-            username,
+            nom,
+            prenom,
             email,
             password: hashedPassword
         });
@@ -51,10 +53,10 @@ router.delete('/supprimer/:id_utilisateur', async (req, res) => {
     const id_utilisateur = req.params.id_utilisateur;
 
     try {
-        // Supprimer les associations de l'utilisateur dans 'Reunion_Utilisateur'
-        // await ReunionUtilisateur.deleteMany({ id_Utilisateur: userId });
+        // Supprimer les associations de l'utilisateur de toutes ses réunions
+        await ReunionUsers.deleteMany({ id_utilisateur });
 
-        // Supprimer l'utilisateur de 'Utilisateur'
+        // Supprimer l'utilisateur
         const userDeleted = await User.findByIdAndDelete({_id: id_utilisateur})
 
         if (!userDeleted) {
