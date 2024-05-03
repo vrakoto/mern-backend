@@ -9,9 +9,10 @@ const router = express.Router();
 // Créer une réunion : http://localhost:3001/reunion/creer
 router.post('/creer', async (req, res) => {
     try {
-        const { duree, motif, id_salle } = req.body;
+        const { dateHeure, duree, motif, id_salle } = req.body;
 
         const newReunion = new Reunion({
+            dateHeure,
             duree,
             motif,
             id_salle
